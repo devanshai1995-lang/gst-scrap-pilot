@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "GST Scrap Pilot",
+  "version": "1.0.0",
+  "description": "Chrome extension for GST return, e-Way Bill, and e-Invoice portal workflows.",
+  "permissions": [
+    "activeTab",
+    "downloads",
+    "storage",
+    "scripting",
+    "tabs",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "https://*.gst.gov.in/*",
+    "https://*.gstportal.gov.in/*",
+    "https://gst.gov.in/*",
+    "https://services.gst.gov.in/*",
+    "https://*.ewaybill.nic.in/*",
+    "https://ewaybill.nic.in/*",
+    "https://*.einvoice.gov.in/*",
+    "https://einvoice.gov.in/*",
+    "https://*.einvoice1.nic.in/*",
+    "https://einvoice1.nic.in/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "GST Scrap Pilot",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.gst.gov.in/*",
+        "https://*.gstportal.gov.in/*",
+        "https://gst.gov.in/*",
+        "https://services.gst.gov.in/*",
+        "https://*.ewaybill.nic.in/*",
+        "https://ewaybill.nic.in/*",
+        "https://*.einvoice.gov.in/*",
+        "https://einvoice.gov.in/*",
+        "https://*.einvoice1.nic.in/*",
+        "https://einvoice1.nic.in/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

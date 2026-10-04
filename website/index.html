@@ -1,0 +1,124 @@
+const GST_PORTAL_URL = 'https://www.gst.gov.in/';
+
+const form = document.getElementById('gst-form');
+const statusBox = document.getElementById('status');
+const bulkStatus = document.getElementById('bulk-status');
+
+const openGSTBtn = document.getElementById('openGSTBtn');
+const gstinInput = document.getElementById('gstin');
+const returnTypeSelect = document.getElementById('returnType');
+const fiscalYearSelect = document.getElementById('fiscalYear');
+const monthSelect = document.getElementById('month');
+
+const tabButtons = document.querySelectorAll('.tab-button');
+const tabContents = document.querySelectorAll('.tab-content');
+
+function setStatus(message) {
+  statusBox.textContent = message;
+}
+
+function setBulkStatus(message) {
+  if (bulkStatus) {
+    bulkStatus.textContent = message;
+  }
+}
+
+function saveFormState() {
+  const state = {
+    gstin: gstinInput.value.trim(),
+    returnType: returnTypeSelect.value,
+    fiscalYear: fiscalYearSelect.value,
+    month: monthSelect.value,
+  };
+  chrome.storage.local.set({ gstReturnsDownloader: state });
+}
+
+function loadFormState() {
+  chrome.storage.local.get(['gstReturnsDownloader'], (result) => {
+    const state = result.gstReturnsDownloader ?? {};
+    if (state.gstin) gstinInput.value = state.gstin;
+    if (state.returnType) returnTypeSelect.value = state.returnType;
+    if (state.fiscalYear) fiscalYearSelect.value = state.fiscalYear;
+    if (state.month) monthSelect.value = state.month;
+  });
+}
+
+function switchTab(tabName) {
+  tabButtons.forEach((button) => {
+    const isActive = button.dataset.tab === tabName;
+    button.classList.toggle('active', isActive);
+  });
+
+  tabContents.forEach((panel) => {
+    const isActive = panel.id === `${tabName}-tab`;
+    panel.classList.toggle('active', isActive);
+  });
+}
+
+function bindTabs() {
+  tabButtons.forEach((button) => {
+    button.addEventListener('click', () => switchTab(button.dataset.tab));
+  });
+}
+
+openGSTBtn.addEventListener('click', async () => {
+  setStatus('Opening GST portal...');
+  try {
+    await chrome.runtime.sendMessage({ type: 'openPortal' });
+  } catch (error) {
+    console.error('Failed to open portal', error);
+    setStatus('Could not open GST portal. Check extension permissions and try again.');
+  }
+});
+
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const gstin = gstinInput.value.trim();
+
+  if (!gstin || gstin.length < 15) {
+    setStatus('Please enter a valid GSTIN before downloading returns.');
+    gstinInput.focus();
+    return;
+  }
+
+  const payload = {
+    gstin,
+    returnType: returnTypeSelect.value,
+    fiscalYear: fiscalYearSelect.value,
+    month: monthSelect.value,
+  };
+
+  saveFormState();
+  setStatus('Starting GST return download workflow...');
+
+  try {
+    await chrome.runtime.sendMessage({ type: 'startDownload', payload });
+  } catch (error) {
+    console.error('Download action failed', error);
+    setStatus('Could not start the GST scraper. Open the GST portal and log in, then retry.');
+  }
+});
+
+document.getElementById('downloadEwayBtn')?.addEventListener('click', async () => {
+  setStatus('Opening e-Way Bill portal workflow...');
+  await chrome.runtime.sendMessage({ type: 'openPortal' });
+});
+
+document.getElementById('downloadEinvoiceBtn')?.addEventListener('click', async () => {
+  setStatus('Opening e-Invoice portal workflow...');
+  await chrome.runtime.sendMessage({ type: 'openPortal' });
+});
+
+document.getElementById('bulkDownloadBtn')?.addEventListener('click', async () => {
+  setBulkStatus('Bulk download started. Please keep the GST, e-Way Bill, and e-Invoice portals open and logged in.');
+  setStatus('Bulk download workflow started.');
+  try {
+    await chrome.runtime.sendMessage({ type: 'bulkDownload' });
+  } catch (error) {
+    console.error('Bulk download failed', error);
+    setBulkStatus('Bulk download could not be started. Please check portal access and permissions.');
+  }
+});
+
+loadFormState();
+bindTabs();

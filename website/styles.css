@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GST Scrap Pilot</title>
+    <meta name="description" content="GST Scrap Pilot helps users streamline GST, e-Way Bill, and e-Invoice portal workflows." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <div class="brand">GST Scrap Pilot</div>
+        <nav>
+          <a href="#features">Features</a>
+          <a href="#coverage">Coverage</a>
+          <a href="#guide">Guide</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <p class="eyebrow">Compliance automation</p>
+            <h1>Streamline GST, e-Way Bill, and e-Invoice downloads.</h1>
+            <p class="lead">
+              GST Scrap Pilot gives businesses a simple, fast workflow to open official portals,
+              select reports, and manage bulk compliance downloads with less manual effort.
+            </p>
+            <div class="cta-row">
+              <a class="button primary" href="#guide">Get Started</a>
+              <a class="button secondary" href="#features">Explore Features</a>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <h3>Portal Coverage</h3>
+            <ul>
+              <li>GST Returns</li>
+              <li>e-Way Bill</li>
+              <li>e-Invoice</li>
+              <li>Bulk compliance actions</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="section">
+        <div class="container">
+          <h2>Why GST Scrap Pilot</h2>
+          <div class="card-grid">
+            <article class="card">
+              <h3>Fast Access</h3>
+              <p>Open the right compliance portal instantly from a single, focused dashboard.</p>
+            </article>
+            <article class="card">
+              <h3>Smart Filtering</h3>
+              <p>Choose return type, financial year, and month to narrow the relevant downloads.</p>
+            </article>
+            <article class="card">
+              <h3>Bulk Workflows</h3>
+              <p>Coordinate multiple compliance actions in one place for less repetitive work.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="coverage" class="section alt">
+        <div class="container">
+          <h2>Compliance Coverage</h2>
+          <div class="pill-row">
+            <span>GSTR-1</span>
+            <span>GSTR-3B</span>
+            <span>GSTR-9</span>
+            <span>GSTR-9C</span>
+            <span>GSTR-2A</span>
+            <span>GSTR-2B</span>
+            <span>e-Way Bill</span>
+            <span>e-Invoice</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="guide" class="section">
+        <div class="container">
+          <h2>How it works</h2>
+          <ol class="steps">
+            <li>Install the Chrome extension</li>
+            <li>Log in to the GST, e-Way Bill, or e-Invoice portal</li>
+            <li>Select the report or return type and filters</li>
+            <li>Trigger the download workflow from the extension popup</li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">© 2026 GST Scrap Pilot</div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

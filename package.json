@@ -1,0 +1,11 @@
+{
+  "name": "gst-scrap-pilot",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:website": "npx serve website",
+    "build:website": "mkdir -p dist/website && cp -r website/* dist/website/",
+    "build:extension": "mkdir -p dist/chrome-extension && cp -r chrome-extension/* dist/chrome-extension/",
+    "build": "npm run build:website && npm run build:extension"
+  }
+}

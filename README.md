@@ -46,6 +46,20 @@ npm run dev:website
 
 Then visit the local preview URL shown in the terminal.
 
+## Deployment
+
+This project is configured for GitHub Pages deployment from the static website folder.
+
+### Enable GitHub Pages
+1. Open your repo on GitHub
+2. Go to Settings > Pages
+3. Source: `GitHub Actions`
+4. Save
+
+### Deployment flow
+
+The workflow in `.github/workflows/deploy-pages.yml` publishes the contents of `website/` automatically whenever changes are pushed to `main`.
+
 ## Extension features
 - GST return download flow
 - e-Way Bill and e-Invoice portal shortcuts

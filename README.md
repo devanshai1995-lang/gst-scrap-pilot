@@ -75,3 +75,7 @@ The workflow in `.github/workflows/deploy-pages.yml` publishes the contents of `
 
 ## License
 MIT
+
+## Important note
+
+This project is intended as a browser automation and workflow helper for the user’s own authenticated portal access. The actual GST and compliance websites are governed by their own terms, login requirements, and page layouts, which may change over time.
